@@ -1,4 +1,5 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native';
+import Button from '../../componet/button';
 
 export default function Index() {
     return (
@@ -6,6 +7,7 @@ export default function Index() {
             <View style={styles.formWrapper}>
                 <Text style={styles.label}>Texto</Text>
                 <TextInput style={styles.input} />
+                <Button title="Click me"/>
             </View>
         </View>
     )
