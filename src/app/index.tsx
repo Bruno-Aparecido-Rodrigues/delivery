@@ -1,16 +1,44 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import Button from '../../componet/button';
+import { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { router } from 'expo-router';
+import Button from '../../components/button';
+import Card from '../../components/card';
+import Input from '../../components/input';
 
 export default function Index() {
+    const [usuario, setUsuario] = useState('');
+    const [senha, setSenha] = useState('');
+
+    function handleLogin() {
+        if (usuario === 'Neyma' && senha === 'vaiBrasil') {
+            router.push({ pathname: '/dashboard' });
+        } else {
+            window.alert('Usuário ou senha incorretos.');
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.formWrapper}>
-                <Text style={styles.label}>Texto</Text>
-                <TextInput style={styles.input} />
-                <Button title="Click me"/>
+                <Card>
+                    <Input
+                        label="Usuário"
+                        value={usuario}
+                        onChangeText={setUsuario}
+                        autoCapitalize="none"
+                    />
+                    <Input
+                        label="Senha"
+                        value={senha}
+                        onChangeText={setSenha}
+                        secureTextEntry
+                        autoCapitalize="none"
+                    />
+                    <Button title="Logar" onPress={handleLogin} />
+                </Card>
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -26,22 +54,5 @@ const styles = StyleSheet.create({
         marginBottom: 80,
         width: '100%',
         maxWidth: 320,
-    },
-    label: {
-        color: '#FFF',
-        fontSize: 14,
-        fontWeight: '600',
-        letterSpacing: 0.5,
-        textAlign: 'center',
-    },
-    input: {
-        backgroundColor: '#555',
-        borderRadius: 8,
-        color: '#FFF',
-        fontSize: 16,
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        borderWidth: 1,
-        borderColor: '#666',
     },
 });
