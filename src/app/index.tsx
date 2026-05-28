@@ -11,7 +11,7 @@ export default function Index() {
 
     function handleLogin() {
         if (usuario === 'Neyma' && senha === 'vaiBrasil') {
-            router.push({ pathname: '/dashboard' });
+            router.push({ pathname: '/pokedex' });
         } else {
             window.alert('Usuário ou senha incorretos.');
         }
