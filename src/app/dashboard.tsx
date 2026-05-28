@@ -1,6 +1,6 @@
 import { View, Image, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
-import Button from '../../components/button';
+import Button from '../components/button';
 
 export default function Dashboard() {
     return (

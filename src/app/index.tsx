@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
-import Button from '../../components/button';
-import Card from '../../components/card';
-import Input from '../../components/input';
+import Button from '../components/button';
+import Card from '../components/card';
+import Input from '../components/input';
 
 export default function Index() {
     const [usuario, setUsuario] = useState('');
