@@ -1,19 +1,22 @@
 import { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { router } from 'expo-router';
-import Button from '../components/button';
-import Card from '../components/card';
-import Input from '../components/input';
+import { useAuth } from '@/context/AuthContext';
+import Button from '@/components/button';
+import Card from '@/components/card';
+import Input from '@/components/input';
 
 export default function Index() {
     const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('');
+    const { signIn } = useAuth();
 
     function handleLogin() {
-        if (usuario === 'Neyma' && senha === 'vaiBrasil') {
-            router.push({ pathname: '/pokedex' });
+        const success = signIn(usuario, senha);
+        if (success) {
+            router.replace('/pokedex');
         } else {
-            window.alert('Usuário ou senha incorretos.');
+            Alert.alert('Erro', 'Usuário ou senha incorretos.');
         }
     }
 

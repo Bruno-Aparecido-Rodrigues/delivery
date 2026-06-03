@@ -12,7 +12,7 @@ export default function PokemonList({ pokemons }: Props) {
         <FlatList
             data={pokemons}
             keyExtractor={(item) => item.index}
-            numColumns={2}
+            numColumns={3}
             contentContainerStyle={Styles.listContent}
             columnWrapperStyle={Styles.columnWrapper}
             showsVerticalScrollIndicator={false}

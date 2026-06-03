@@ -1,37 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const TYPE_COLORS: Record<string, string> = {
-    fire:     '#F08030',
-    water:    '#6890F0',
-    grass:    '#78C850',
-    electric: '#F8D030',
-    psychic:  '#F85888',
-    ice:      '#98D8D8',
-    dragon:   '#7038F8',
-    dark:     '#705848',
-    normal:   '#A8A878',
-    fighting: '#C03028',
-    flying:   '#A890F0',
-    poison:   '#A040A0',
-    ground:   '#E0C068',
-    rock:     '#B8A038',
-    bug:      '#A8B820',
-    ghost:    '#705898',
-    steel:    '#B8B8D0',
-    fairy:    '#EE99AC',
-};
-
-// Cor do texto por tipo (escuro para tipos claros, branco para escuros)
-export const TYPE_TEXT_COLORS: Record<string, string> = {
-    electric: '#5a4a00',
-    normal:   '#3a3a2a',
-    ground:   '#5a4a00',
-    rock:     '#3a3200',
-    bug:      '#3a4000',
-    ice:      '#1a4a4a',
-    steel:    '#2a2a40',
-    fairy:    '#7a2040',
-};
+export { TYPE_COLORS, TYPE_TEXT_COLORS } from '@/constants/colors';
 
 export const BORDER_WIDTH = 4;
 export const CARD_HEIGHT = 300;
@@ -95,7 +64,6 @@ export const Styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'center',
     },
-    // Badge estilo jogo — fundo sólido da cor do tipo com borda escura
     typeBadge: {
         paddingHorizontal: 8,
         paddingVertical: 2,
@@ -123,19 +91,20 @@ export const Styles = StyleSheet.create({
     },
     powerRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
+        flexWrap: 'nowrap',
     },
     powerName: {
+        width: 88,
+        flexShrink: 0,
         fontSize: 10,
         color: 'rgba(255,255,255,0.85)',
         textTransform: 'capitalize',
-        flex: 1,
         letterSpacing: 0.2,
         fontFamily: 'PkmnRBYGSC',
     },
     powerBarBackground: {
-        flex: 2,
+        flex: 1,
         height: 5,
         backgroundColor: 'rgba(255,255,255,0.2)',
         borderRadius: 10,
@@ -148,10 +117,11 @@ export const Styles = StyleSheet.create({
         borderRadius: 10,
     },
     powerValue: {
+        width: 28,
+        flexShrink: 0,
         fontSize: 10,
         color: '#fff',
         fontWeight: '700',
-        width: 30,
         textAlign: 'right',
         fontFamily: 'PkmnRBYGSC',
     },

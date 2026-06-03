@@ -5,13 +5,14 @@ import { useFonts } from 'expo-font';
 import { getPokemon } from "@/integration/pokemonIntegration";
 import { Pokemon } from "@/@types/pokemon";
 import PokemonList from "@/components/pokemon-list";
+import { Colors } from "@/constants/colors";
 
 export default function Pokedex() {
     const [loading, setLoading] = useState(true);
     const [pokemons, setPokemon] = useState<Pokemon[]>([]);
 
     const [fontsLoaded] = useFonts({
-        PkmnRBYGSC: require('../../assets/fonts/PKMN RBYGSC.ttf'),
+        PkmnRBYGSC: require('../../../assets/fonts/PKMN RBYGSC.ttf'),
     });
 
     useEffect(() => {
@@ -31,7 +32,7 @@ export default function Pokedex() {
     if (loading || !fontsLoaded) {
         return (
             <View style={styles.loadingContainer}>
-                <ActivityIndicator size="large" color="#EE4444" />
+                <ActivityIndicator size="large" color={Colors.primary} />
                 <Text style={styles.loadingText}>Carregando Pokédex...</Text>
             </View>
         );
@@ -48,10 +49,10 @@ export default function Pokedex() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#2a2a2a',
+        backgroundColor: Colors.background,
     },
     title: {
-        color: '#fff',
+        color: Colors.white,
         fontSize: 28,
         fontWeight: '800',
         paddingHorizontal: 16,
@@ -63,13 +64,13 @@ const styles = StyleSheet.create({
     },
     loadingContainer: {
         flex: 1,
-        backgroundColor: '#2a2a2a',
+        backgroundColor: Colors.background,
         justifyContent: 'center',
         alignItems: 'center',
         gap: 16,
     },
     loadingText: {
-        color: '#fff',
+        color: Colors.white,
         fontSize: 16,
         fontWeight: '600',
     },
