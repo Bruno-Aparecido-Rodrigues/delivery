@@ -151,7 +151,7 @@ export const Styles = StyleSheet.create({
         fontSize: 10,
         color: '#fff',
         fontWeight: '700',
-        width: 24,
+        width: 30,
         textAlign: 'right',
         fontFamily: 'PkmnRBYGSC',
     },
