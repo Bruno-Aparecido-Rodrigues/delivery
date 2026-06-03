@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { useFonts } from 'expo-font';
 
 import { getPokemon } from "@/integration/pokemonIntegration";
 import { Pokemon } from "@/@types/pokemon";
-import PokemonCard from "@/components/pokemon-card";
+import PokemonList from "@/components/pokemon-list";
 
 export default function Pokedex() {
     const [loading, setLoading] = useState(true);
     const [pokemons, setPokemon] = useState<Pokemon[]>([]);
+
+    const [fontsLoaded] = useFonts({
+        PkmnRBYGSC: require('../../assets/fonts/PKMN RBYGSC.ttf'),
+    });
 
     useEffect(() => {
         async function loadData() {
@@ -23,7 +28,7 @@ export default function Pokedex() {
         loadData();
     }, []);
 
-    if (loading) {
+    if (loading || !fontsLoaded) {
         return (
             <View style={styles.loadingContainer}>
                 <ActivityIndicator size="large" color="#EE4444" />
@@ -35,13 +40,7 @@ export default function Pokedex() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Pokédex</Text>
-            <FlatList
-                data={pokemons}
-                keyExtractor={(item) => item.index}
-                numColumns={2}
-                contentContainerStyle={styles.listContent}
-                renderItem={({ item }) => <PokemonCard pokemon={item} />}
-            />
+            <PokemonList pokemons={pokemons} />
         </View>
     );
 }
@@ -60,10 +59,7 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
         letterSpacing: 0.5,
         textAlign: 'center',
-    },
-    listContent: {
-        paddingHorizontal: 8,
-        paddingBottom: 32,
+        fontFamily: 'PkmnRBYGSC',
     },
     loadingContainer: {
         flex: 1,
