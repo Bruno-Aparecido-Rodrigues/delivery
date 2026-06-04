@@ -16,7 +16,7 @@ export default function Index() {
         if (success) {
             router.replace('/pokedex');
         } else {
-            Alert.alert('Erro', 'Usuário ou senha incorretos.');
+            alert('Usuário ou senha incorretos.');
         }
     }
 

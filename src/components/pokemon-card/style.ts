@@ -117,7 +117,7 @@ export const Styles = StyleSheet.create({
         borderRadius: 10,
     },
     powerValue: {
-        width: 28,
+        width: 30,
         flexShrink: 0,
         fontSize: 10,
         color: '#fff',
