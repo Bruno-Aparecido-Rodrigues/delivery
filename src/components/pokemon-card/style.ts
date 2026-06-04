@@ -95,7 +95,7 @@ export const Styles = StyleSheet.create({
         flexWrap: 'nowrap',
     },
     powerName: {
-        width: 88,
+        width: 125,
         flexShrink: 0,
         fontSize: 10,
         color: 'rgba(255,255,255,0.85)',
