@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
-import { useFonts } from 'expo-font';
 
 import { getPokemon } from "@/integration/pokemonIntegration";
 import { Pokemon } from "@/@types/pokemon";
@@ -10,10 +9,6 @@ import { Colors } from "@/constants/colors";
 export default function Pokedex() {
     const [loading, setLoading] = useState(true);
     const [pokemons, setPokemon] = useState<Pokemon[]>([]);
-
-    const [fontsLoaded] = useFonts({
-        PkmnRBYGSC: require('../../../assets/fonts/PKMN RBYGSC.ttf'),
-    });
 
     useEffect(() => {
         async function loadData() {
@@ -29,7 +24,7 @@ export default function Pokedex() {
         loadData();
     }, []);
 
-    if (loading || !fontsLoaded) {
+  if (loading) {
         return (
             <View style={styles.loadingContainer}>
                 <ActivityIndicator size="large" color={Colors.primary} />

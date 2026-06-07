@@ -1,10 +1,15 @@
 export const Colors = {
-    black: '#000000',
-    white: '#FFFFFF',
+    black:      '#000000',
+    white:      '#FFFFFF',
     background: '#2a2a2a',
-    backgroundAlt: '#444444',
-    primary: '#CC0000',
-    pokeballBlack: '#1a1a1a',
+    surface:    '#201f1f',
+    primary:    '#CC0000',
+    primaryAlt: '#ff525f',
+};
+
+export const BorderWidth = {
+    black: 4,
+    red:   5,
 };
 
 export const TYPE_COLORS: Record<string, string> = {
