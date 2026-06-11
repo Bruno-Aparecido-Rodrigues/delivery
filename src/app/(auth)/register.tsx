@@ -13,11 +13,12 @@ const BATTLE_SCENE = require('../../../assets/images/battle_scene.png');
 
 const CARD_SIZE = 408;
 
-export default function Index() {
-    const [usuario, setUsuario] = useState('');
-    const [senha, setSenha]     = useState('');
-    const [erro, setErro]       = useState('');
-    const { signIn, isAuthenticated } = useAuth();
+export default function Register() {
+    const [usuario, setUsuario]           = useState('');
+    const [senha, setSenha]               = useState('');
+    const [confirmSenha, setConfirmSenha] = useState('');
+    const [erro, setErro]                 = useState('');
+    const { signUp } = useAuth();
     const { width: W } = useWindowDimensions();
     const isWide = W > 700;
 
@@ -31,19 +32,27 @@ export default function Index() {
         ).start();
     }, []);
 
+    async function handleRegister() {
+        if (!usuario.trim() || !senha.trim() || !confirmSenha.trim()) {
+            setErro('► PREENCHA TODOS OS CAMPOS');
+            return;
+        }
+        if (senha !== confirmSenha) {
+            setErro('► AS SENHAS NÃO COINCIDEM');
+            return;
+        }
+        if (senha.length < 6) {
+            setErro('► SENHA MUITO CURTA (MÍN. 6)');
+            return;
+        }
 
-useEffect(() => {
-    if (isAuthenticated) {
-        router.replace('/(app)/profile');
+        const result = await signUp(usuario, senha);
+        if (result.ok) {
+            router.replace('/(app)/profile');
+        } else {
+            setErro(result.error ?? '► ERRO AO CRIAR CONTA');
+        }
     }
-}, [isAuthenticated]);
-
-async function handleLogin() {
-    const success = await signIn(usuario, senha);
-    if (!success) {
-        setErro('► USUÁRIO OU SENHA INCORRETOS');
-    }
-}
 
     return (
         <ImageBackground source={FOREST_BG} style={styles.bg} resizeMode="cover">
@@ -52,36 +61,45 @@ async function handleLogin() {
             <View style={[styles.content, isWide ? styles.contentWide : styles.contentNarrow]}>
 
                 <Animated.View style={{ transform: [{ translateY: floatAnim }] }}>
-                    <BattleFrame source={BATTLE_SCENE} size={CARD_SIZE} />
+                    <BattleFrame source={BATTLE_SCENE} size={CARD_SIZE} accentColor="#0061a4" />
                 </Animated.View>
 
                 <PixelCard
-                    title={'LOGIN DO TREINADOR'}
-                    tagline="PREPARE-SE PARA DUELAR"
+                    title={'NOVO TREINADOR'}
+                    tagline="BEM-VINDO AO MUNDO POKÉMON"
                     width={CARD_SIZE}
                 >
                     <Input
                         label="USUÁRIO"
                         value={usuario}
-                        onChangeText={setUsuario}
+                        onChangeText={(v) => { setUsuario(v); setErro(''); }}
                         autoCapitalize="none"
-                        placeholder="NOME DO TREINADOR"
+                        placeholder="ESCOLHA UM NOME"
                         placeholderTextColor="#666"
                     />
                     <Input
                         label="SENHA"
                         value={senha}
-                        onChangeText={setSenha}
+                        onChangeText={(v) => { setSenha(v); setErro(''); }}
                         secureTextEntry
                         autoCapitalize="none"
                         placeholder="••••••••"
                         placeholderTextColor="#666"
                     />
-                    <Button title="ENTRAR  ►" onPress={handleLogin} style={styles.btn} />
+                    <Input
+                        label="CONFIRMAR SENHA"
+                        value={confirmSenha}
+                        onChangeText={(v) => { setConfirmSenha(v); setErro(''); }}
+                        secureTextEntry
+                        autoCapitalize="none"
+                        placeholder="••••••••"
+                        placeholderTextColor="#666"
+                    />
+                    <Button title="CRIAR CONTA  ►" onPress={handleRegister} style={styles.btn} />
                     {erro ? <Text style={styles.erro}>{erro}</Text> : null}
 
-                    <TouchableOpacity onPress={() => router.push('/(auth)/register')} style={styles.registerBtn}>
-                        <Text style={styles.registerText}>NÃO TENHO CONTA</Text>
+                    <TouchableOpacity onPress={() => router.replace('/(auth)/')} style={styles.backBtn}>
+                        <Text style={styles.backText}>◄ JÁ TENHO CONTA</Text>
                     </TouchableOpacity>
                 </PixelCard>
 
@@ -122,24 +140,24 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         textAlign: 'center',
     },
-    registerBtn: {
+    backBtn: {
         alignSelf: 'center',
         paddingVertical: 4,
         paddingHorizontal: 8,
         borderBottomWidth: 1,
-        borderBottomColor: Colors.primary,
+        borderBottomColor: '#555',
     },
-    registerText: {
+    backText: {
         fontFamily: 'PkmnRBYGSC',
         fontSize: 10,
-        color: Colors.primary,
+        color: '#888',
         letterSpacing: 1,
     },
 
     header: {
         position: 'absolute', top: 0, left: 0, right: 0, height: 56,
         backgroundColor: Colors.white,
-        borderBottomWidth: 5, borderBottomColor: Colors.primary,
+        borderBottomWidth: 5,  borderBottomColor: '#0061a4',
         flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
         paddingHorizontal: 20, zIndex: 50,
     },

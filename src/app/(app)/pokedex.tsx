@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 
-import { getPokemon } from "@/integration/pokemonIntegration";
-import { Pokemon } from "@/@types/pokemon";
-import PokemonList from "@/components/pokemon-list";
-import { Colors } from "@/constants/colors";
+import { getPokemon } from '@/integration/pokemonIntegration';
+import { Pokemon } from '@/@types/pokemon';
+import PokemonList from '@/components/pokemon-list';
+import { Colors } from '@/constants/colors';
+import AppHeader from '@/components/app-header';
+import Drawer from '@/components/drawer';
 
 export default function Pokedex() {
     const [loading, setLoading] = useState(true);
     const [pokemons, setPokemon] = useState<Pokemon[]>([]);
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     useEffect(() => {
         async function loadData() {
@@ -24,7 +28,7 @@ export default function Pokedex() {
         loadData();
     }, []);
 
-  if (loading) {
+    if (loading) {
         return (
             <View style={styles.loadingContainer}>
                 <ActivityIndicator size="large" color={Colors.primary} />
@@ -35,8 +39,14 @@ export default function Pokedex() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Pokédex</Text>
+            <AppHeader onMenuPress={() => setDrawerOpen(true)} />
+            <Text style={styles.pageTitle}>Pokedex</Text>
             <PokemonList pokemons={pokemons} />
+            <Drawer
+                isOpen={drawerOpen}
+                onClose={() => setDrawerOpen(false)}
+                currentRoute="/(app)/pokedex"
+            />
         </View>
     );
 }
@@ -45,17 +55,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.background,
-    },
-    title: {
-        color: Colors.white,
-        fontSize: 28,
-        fontWeight: '800',
-        paddingHorizontal: 16,
-        paddingTop: 48,
-        paddingBottom: 8,
-        letterSpacing: 0.5,
-        textAlign: 'center',
-        fontFamily: 'PkmnRBYGSC',
     },
     loadingContainer: {
         flex: 1,
@@ -68,5 +67,15 @@ const styles = StyleSheet.create({
         color: Colors.white,
         fontSize: 16,
         fontWeight: '600',
+    },
+    pageTitle: {
+        fontFamily: 'PkmnRBYGSC',
+        fontSize: 14,
+        color: Colors.white,
+        letterSpacing: 1,
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        paddingVertical: 12,
+        backgroundColor: Colors.background,
     },
 });
