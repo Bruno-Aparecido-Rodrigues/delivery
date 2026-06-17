@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import React, { useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 import { getPokemon } from '@/integration/pokemonIntegration';
 import { Pokemon } from '@/@types/pokemon';
@@ -14,7 +14,7 @@ export default function Pokedex() {
     const [pokemons, setPokemon] = useState<Pokemon[]>([]);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
-    useEffect(() => {
+    useEffect(() => { // Carrega os pokemons ao montar a tela
         async function loadData() {
             try {
                 const data = await getPokemon(151);
@@ -28,16 +28,16 @@ export default function Pokedex() {
         loadData();
     }, []);
 
-    if (loading) {
+    if (loading) {// Tela de loading enquanto os pokemons são carregados
         return (
             <View style={styles.loadingContainer}>
-                <ActivityIndicator size="large" color={Colors.primary} />
+                <Image source={require('../../../assets/images/redrunning.gif')}style={{ width: 256, height: 256 }}/>
                 <Text style={styles.loadingText}>Carregando Pokédex...</Text>
             </View>
         );
     }
 
-    return (
+    return ( // Tela principal da pokedex, exibe o header, a lista de pokemons e a drawer
         <View style={styles.container}>
             <AppHeader onMenuPress={() => setDrawerOpen(true)} />
             <Text style={styles.pageTitle}>Pokedex</Text>
@@ -64,9 +64,9 @@ const styles = StyleSheet.create({
         gap: 16,
     },
     loadingText: {
+        fontFamily: 'PkmnRBYGSC',
         color: Colors.white,
         fontSize: 16,
-        fontWeight: '600',
     },
     pageTitle: {
         fontFamily: 'PkmnRBYGSC',

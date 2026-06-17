@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, useWindowDimensions, Animated, ImageBackground, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, useWindowDimensions, Animated, ImageBackground, Image, Text, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 import Button from '@/components/button';
@@ -9,7 +9,7 @@ import PixelCard from '@/components/pixel-card';
 import { Colors } from '@/constants/colors';
 
 const FOREST_BG    = require('../../../assets/images/forest_bg.png');
-const BATTLE_SCENE = require('../../../assets/images/battle_scene.png');
+const BATTLE_SCENE = require('../../../assets/images/battle_scene2.png');
 
 const CARD_SIZE = 408;
 
@@ -22,7 +22,7 @@ export default function Register() {
     const { width: W } = useWindowDimensions();
     const isWide = W > 700;
 
-    const floatAnim = useRef(new Animated.Value(0)).current;
+    const floatAnim = useRef(new Animated.Value(0)).current; // animação de flutuar do card
     useEffect(() => {
         Animated.loop(
             Animated.sequence([
@@ -32,7 +32,7 @@ export default function Register() {
         ).start();
     }, []);
 
-    async function handleRegister() {
+    async function handleRegister() { // função de registro, chama o signUp do AuthContext
         if (!usuario.trim() || !senha.trim() || !confirmSenha.trim()) {
             setErro('► PREENCHA TODOS OS CAMPOS');
             return;
@@ -65,7 +65,7 @@ export default function Register() {
                 </Animated.View>
 
                 <PixelCard
-                    title={'NOVO TREINADOR'}
+                    title={<Text style={{ color: '#0061a4' }}>NOVO TREINADOR</Text>}
                     tagline="BEM-VINDO AO MUNDO POKÉMON"
                     width={CARD_SIZE}
                 >
@@ -106,12 +106,14 @@ export default function Register() {
             </View>
 
             <View style={styles.header}>
+                <Image source={require('../../../assets/images/pokebola.png')} style={{ width: 24, height: 24, marginRight: 10 }} />
                 <Text style={styles.headerTitle}>PokeBattle</Text>
-                <Text style={styles.headerVersion}>V. 1.0.4</Text>
             </View>
 
             <View style={styles.footer}>
-                <Text style={styles.footerText}>© 1996-2024 POKÉMON. TODOS OS DIREITOS RESERVADOS.</Text>
+                <Text style={styles.footerText}> {/*EasterEgg*/}
+                © <Text onPress={() => router.replace('../dashboard')} style={styles.footerText}>1996</Text>-2024 POKÉMON. TODOS OS DIREITOS RESERVADOS.
+                </Text>
             </View>
         </ImageBackground>
     );
@@ -126,7 +128,7 @@ const styles = StyleSheet.create({
     contentNarrow: { flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24 },
 
     btn: {
-        backgroundColor: Colors.primaryAlt,
+        backgroundColor: '#0061a4',
         borderRadius: 0,
         borderBottomWidth: 5,
         borderRightWidth: 4,
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
         position: 'absolute', top: 0, left: 0, right: 0, height: 56,
         backgroundColor: Colors.white,
         borderBottomWidth: 5,  borderBottomColor: '#0061a4',
-        flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+        flexDirection: 'row', alignItems: 'center',
         paddingHorizontal: 20, zIndex: 50,
     },
     headerTitle:   { fontFamily: 'PkmnRBYGSC', fontSize: 18, color: Colors.black, letterSpacing: 1 },

@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { useFonts } from 'expo-font';
 import { AuthProvider } from "@/context/AuthContext";
-import { View, ActivityIndicator } from "react-native";
+import { Image, View } from 'react-native';
 
 export default function RootLayout() {
     const [fontsLoaded] = useFonts({
@@ -11,7 +11,7 @@ export default function RootLayout() {
     if (!fontsLoaded) {
         return (
             <View style={{ flex: 1, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator color="#CC0000" />
+                <Image source={require('../../assets/images/redrunning.gif')}style={{ width: 256, height: 256 }}/>
             </View>
         );
     }

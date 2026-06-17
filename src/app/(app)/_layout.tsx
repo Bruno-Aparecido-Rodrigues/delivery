@@ -1,5 +1,5 @@
 import { Stack, Redirect } from 'expo-router';
-import { ActivityIndicator, View } from 'react-native';
+import { Image, View } from 'react-native';
 import { useAuth } from '@/context/AuthContext';
 import { Colors } from '@/constants/colors';
 
@@ -9,7 +9,7 @@ export default function AppLayout() {
     if (isLoading) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.background }}>
-                <ActivityIndicator size="large" color={Colors.primary} />
+              <Image source={require('../../../assets/images/redrunning.gif')}style={{ width: 256, height: 256 }}/>
             </View>
         );
     }

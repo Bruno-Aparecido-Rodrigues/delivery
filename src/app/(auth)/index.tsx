@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, useWindowDimensions, Animated, ImageBackground, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, useWindowDimensions, Animated, ImageBackground, Text, Image, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 import Button from '@/components/button';
@@ -11,7 +11,7 @@ import { Colors } from '@/constants/colors';
 const FOREST_BG    = require('../../../assets/images/forest_bg.png');
 const BATTLE_SCENE = require('../../../assets/images/battle_scene.png');
 
-const CARD_SIZE = 408;
+const CARD_SIZE = 408; //escala dos cards
 
 export default function Index() {
     const [usuario, setUsuario] = useState('');
@@ -21,7 +21,7 @@ export default function Index() {
     const { width: W } = useWindowDimensions();
     const isWide = W > 700;
 
-    const floatAnim = useRef(new Animated.Value(0)).current;
+    const floatAnim = useRef(new Animated.Value(0)).current; // animação de flutuar do card
     useEffect(() => {
         Animated.loop(
             Animated.sequence([
@@ -32,13 +32,13 @@ export default function Index() {
     }, []);
 
 
-useEffect(() => {
+useEffect(() => { // se já estiver autenticado, redireciona direto pro perfil
     if (isAuthenticated) {
         router.replace('/(app)/profile');
     }
 }, [isAuthenticated]);
 
-async function handleLogin() {
+async function handleLogin() { // função de login, chama o signIn do AuthContext
     const success = await signIn(usuario, senha);
     if (!success) {
         setErro('► USUÁRIO OU SENHA INCORRETOS');
@@ -88,8 +88,8 @@ async function handleLogin() {
             </View>
 
             <View style={styles.header}>
+                <Image source={require('../../../assets/images/pokebola.png')} style={{ width: 24, height: 24, marginRight: 10 }} />
                 <Text style={styles.headerTitle}>PokeBattle</Text>
-                <Text style={styles.headerVersion}>V. 1.0.4</Text>
             </View>
 
             <View style={styles.footer}>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         position: 'absolute', top: 0, left: 0, right: 0, height: 56,
         backgroundColor: Colors.white,
         borderBottomWidth: 5, borderBottomColor: Colors.primary,
-        flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+        flexDirection: 'row', alignItems: 'center',
         paddingHorizontal: 20, zIndex: 50,
     },
     headerTitle:   { fontFamily: 'PkmnRBYGSC', fontSize: 18, color: Colors.black, letterSpacing: 1 },
