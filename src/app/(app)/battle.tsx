@@ -170,8 +170,8 @@ export default function Battle() {
     if (loading) {
         return (
             <View style={styles.loadingWrapper}>
-                <ActivityIndicator size="large" color={Colors.primary} />
-                <Text style={styles.loadingText}>Carregando time...</Text>
+                <Image source={require('../../../assets/images/redrunning.gif')}style={{ width: 256, height: 256 }}/>
+                <Text style={styles.loadingText}>Carregando duelo...</Text>
             </View>
         );
     }

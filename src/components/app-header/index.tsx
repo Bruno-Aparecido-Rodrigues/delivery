@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image as RNImage, TouchableOpacity, StyleSheet } from 'react-native';
 import { Colors } from '@/constants/colors';
 
 type Props = {
@@ -13,7 +13,12 @@ export default function AppHeader({ onMenuPress }: Props) {
                 <View style={styles.bar} />
                 <View style={styles.bar} />
             </TouchableOpacity>
-            <Text style={styles.title}>PokeBattle</Text>
+
+            <View style={styles.titleGroup}>
+                <RNImage source={require('../../../assets/images/pokebola.png')} style={styles.logo} />
+                <Text style={styles.title}>PokeBattle</Text>
+            </View>
+
             <View style={styles.spacer} />
         </View>
     );
@@ -42,12 +47,21 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.black,
         borderRadius: 2,
     },
-    title: {
+    titleGroup: {
         flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+    },
+    logo: {
+        width: 24,
+        height: 24,
+    },
+    title: {
         fontFamily: 'PkmnRBYGSC',
         fontSize: 18,
         color: Colors.black,
-        textAlign: 'center',
         letterSpacing: 1,
     },
     spacer: {
